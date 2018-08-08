@@ -43,6 +43,7 @@ class ViewController: UIViewController {
     func updateQuestion() {
         
         gameSummaryLabel.isHidden = true
+        answerStatusLabel.isHidden = true
         questionLabel.text = trivia.list[questionNumber].questionText
         answerAButton.setTitle(trivia.list[questionNumber].answerA, for: UIControlState.normal)
         answerBButton.setTitle(trivia.list[questionNumber].answerB, for: UIControlState.normal)
@@ -51,6 +52,7 @@ class ViewController: UIViewController {
         correctAnswer = trivia.list[questionNumber].correctAnswer
         correctText = trivia.list[questionNumber].correctText
         questionNumber = AllQuestions().randomQuestion()
+        
     }
     
     override func viewDidLoad() {
@@ -122,7 +124,7 @@ class ViewController: UIViewController {
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
         // Calculates a time value to execute the method given current time and delay
         let dispatchTime = DispatchTime.now() + Double(delay) / Double(NSEC_PER_SEC)
-        
+
         // Executes the nextRound method at the dispatch time on the main queue
         DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
             self.nextRound()
@@ -153,7 +155,7 @@ class ViewController: UIViewController {
           print("Wrong Answer!")
         }
         questionsAsked += 1
-        nextRound()
+        loadNextRound(delay: 2)
     }
     
    
